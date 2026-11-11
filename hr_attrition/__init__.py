@@ -1,0 +1,1 @@
+"""Anaylize employees attrtion based on IBM HR Analytics Employee Attrition dataset."""

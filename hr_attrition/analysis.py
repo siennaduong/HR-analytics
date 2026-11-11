@@ -1,0 +1,1 @@
+"""Aggregate employee data to compute attrition rates by group."""
