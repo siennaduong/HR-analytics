@@ -1,0 +1,23 @@
+# --- Python bytecode / cache ---
+__pycache__/
+*.py[cod]
+
+# --- Virtual environment ---
+.venv/
+venv/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Streamlit secrets ---
+.streamlit/secrets.toml
+
+# --- Generated results (recreated by running the code) ---
+outputs/
+
+# --- Editors / IDE ---
+.vscode/
+.idea/
+
+# --- macOS junk files ---
+.DS_Store
