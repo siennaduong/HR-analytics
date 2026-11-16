@@ -49,6 +49,26 @@ def load_data(file_path=DEFAULT_DATA_PATH):
     return df
 
 
+def build_output_path(file_name, output_dir=OUTPUT_DIR):
+    """Return the full path for an output file, creating its folder if needed.
+
+    Parameters
+    ----------
+    file_name : str
+        Name of the output file, for example "summary.csv".
+    output_dir : str or pathlib.Path, optional
+        Folder where the file will be written. Defaults to the outputs/ folder.
+
+    Returns
+    -------
+    pathlib.Path
+        Full path of the output file.
+    """
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    return output_dir / file_name
+
+
 def save_table(table, file_name, output_dir=OUTPUT_DIR):
     """Save a DataFrame as a CSV file in the output folder.
 
@@ -66,13 +86,28 @@ def save_table(table, file_name, output_dir=OUTPUT_DIR):
     pathlib.Path
         Full path of the saved file.
     """
-    # Accept both str and Path input.
-    output_dir = Path(output_dir)
-
-    # Create the folder if it does not exist yet.
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Build the full path, write the table, and return where it was saved.
-    file_path = output_dir / file_name
+    file_path = build_output_path(file_name, output_dir)
     table.to_csv(file_path, index=False)
+    return file_path
+
+
+def save_figure(fig, file_name, output_dir=OUTPUT_DIR):
+    """Save a matplotlib figure as an image file in the output folder.
+
+    Parameters
+    ----------
+    fig : matplotlib.figure.Figure
+        The figure to save.
+    file_name : str
+        Name of the image file, for example "attrition_by_department.png".
+    output_dir : str or pathlib.Path, optional
+        Folder where the file is written. Defaults to the outputs/ folder.
+
+    Returns
+    -------
+    pathlib.Path
+        Full path of the saved file.
+    """
+    file_path = build_output_path(file_name, output_dir)
+    fig.savefig(file_path, dpi=150, bbox_inches="tight")
     return file_path
