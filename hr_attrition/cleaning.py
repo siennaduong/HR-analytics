@@ -6,19 +6,20 @@ import pandas as pd
 AGE_BINS = [17, 29, 39, 49, 60]
 AGE_LABELS = ["18-29", "30-39", "40-49", "50-60"]
 
+
 def count_missing_values(df):
     """Count the missing values in each column.
     
     Parameters
     ----------
-    df: pandas.DataFrame
+    df : pandas.DataFrame
         The employee data.
 
     Returns
     -------
     pandas.Series
         Number of missing values per column, only for the columns that have
-        at least one. Empty if the data has no missing value
+        at least one. Empty if the data has no missing values.
     """
     missing = df.isna().sum()
     return missing[missing > 0]
