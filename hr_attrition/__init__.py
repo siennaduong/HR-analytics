@@ -1,1 +1,1 @@
-"""Anaylize employees attrtion based on IBM HR Analytics Employee Attrition dataset."""
+"""Tools for analyzing employee attrition in the IBM HR Analytics dataset."""
