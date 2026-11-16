@@ -8,6 +8,7 @@ import pandas as pd
 # Go up two levels: data_loader.py -> hr_attrition/ -> HR-analytics/ (project root)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DATA_PATH = PROJECT_ROOT / "data" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+OUTPUT_DIR = PROJECT_ROOT / "outputs"
 
 
 def load_data(file_path=DEFAULT_DATA_PATH):
@@ -47,3 +48,31 @@ def load_data(file_path=DEFAULT_DATA_PATH):
 
     return df
 
+
+def save_table(table, file_name, output_dir=OUTPUT_DIR):
+    """Save a DataFrame as a CSV file in the output folder.
+
+    Parameters
+    ----------
+    table : pandas.DataFrame
+        The table to save.
+    file_name : str
+        Name of the CSV file, for example "attrition_by_department.csv".
+    output_dir : str or pathlib.Path, optional
+        Folder where the file is written. Defaults to the outputs/ folder.
+
+    Returns
+    -------
+    pathlib.Path
+        Full path of the saved file.
+    """
+    # Accept both str and Path input.
+    output_dir = Path(output_dir)
+
+    # Create the folder if it does not exist yet.
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Build the full path, write the table, and return where it was saved.
+    file_path = output_dir / file_name
+    table.to_csv(file_path, index=False)
+    return file_path
