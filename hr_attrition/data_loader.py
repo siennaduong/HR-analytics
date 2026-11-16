@@ -30,18 +30,20 @@ def load_data(file_path=DEFAULT_DATA_PATH):
     ValueError
         If the file is empty or cannot be parsed as CSV.
     """
-    # TODO 1: convert file_path into a Path object
-    #         (the caller might pass a plain string like "data/x.csv")
+    # Accept both str and Path input.
     file_path = Path(file_path)
 
-    # TODO 2: if the file does not exist, raise FileNotFoundError
-    #         with a message that includes the full path that was tried
+    # Fail early with a clear message if the file is missing.
     if not file_path.exists(): 
         raise FileNotFoundError(f"Data file not found: {file_path}")
     
-    # TODO 3: read the CSV inside a try block
-    #         - except pd.errors.EmptyDataError -> raise ValueError("...")
-    #         - except pd.errors.ParserError    -> raise ValueError("...")
+    # Turn pandas reading errors into clear ValueErrors.
+    try:
+        df = pd.read_csv(file_path)
+    except pd.errors.EmptyDataError:
+        raise ValueError(f"File is empty: {file_path}")
+    except pd.errors.ParserError:
+        raise ValueError(f"Incorrect file format: {file_path}")
 
-    # TODO 4: return the DataFrame
+    return df
 
