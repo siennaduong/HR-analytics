@@ -20,7 +20,8 @@ def count_missing_values(df):
 
 
 def drop_constant_columns(df):
-    """Remove columns that hold the same value for every employee
+    """Remove columns that hold the same value for every employee.
+    
     Such columns (EmployeeCount, Over18 and StandardHours in the IBM data)
     carry no information for the analysis.
     
