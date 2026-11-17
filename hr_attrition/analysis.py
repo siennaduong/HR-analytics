@@ -35,3 +35,36 @@ def attrition_rate_by(df, column):
         .sort_values("attrition_rate", ascending=False)
     )
     return summary
+
+
+def attrition_pivot(df, rows, columns):
+    """Compute attrition rates for every combination of two columns.
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The cleaned employee data, with an AttritionFlag column.
+    rows : str
+        Columns whose groups become the rows, for example "Departments".
+    columns : str
+        Columns whose groups become the columns, for example "OverTime".
+
+    Returns
+    -------
+    pandas.DataFrame
+        Attrition rates with one row per group of 'rows' and one column
+        per group of 'columns'.
+
+    Raises
+    ------
+    KeyError
+        If 'rows' or 'columns' is not a column of 'df'.
+    """
+    for name in (rows, columns):
+        if name not in df.columns:
+            raise KeyError(f"Column not found: {name}")
+    return df.pivot_table(
+        index=rows,
+        columns=columns,
+        values="AttritionFlag",
+        aggfunc="mean",
+    )
